@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Python 海龟编辑器 - Python-Online</title>
+    <style>
+        body {
+            background-color: #f9f5eb;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            background-color: #2980b9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* 登录注册按钮样式 */
+        .auth-buttons button {
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-buttons button:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+
+        /* 功能按钮区域样式 */
+        .function {
+            background-color: #3498db;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .function button {
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 10px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .function button:hover {
+            background-color: #c0392b;
+        }
+
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 100; /* 提高层级，确保在其他元素之上 */
+        }
+
+        .dropdown-content button {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 页面主体样式 */
+        .page {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .CodeMirror {
+            font-size: 16px;
+            /* 可根据需求调整字体大小 */
+        }
+
+        .index-form {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 50%;
+        }
+
+        .outputd {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            padding: 20px;
+            width: 50%;
+        }
+
+        .canvas-ouput {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .output {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+            /* 添加过渡效果 */
+        }
+
+        footer:hover {
+            background-color: #2c3e50;
+            /* 悬停时改变背景颜色 */
+            transform: translateY(-5px);
+            /* 悬停时向上移动 5px */
+        }
+    </style>
+    <script src="js/skulpt.min.js" type="text/javascript"></script>
+    <script src="js/skulpt-stdlib.js" type="text/javascript"></script>
+    <link href="codemirror/lib/codemirror.css" rel="stylesheet" type="text/css">
+    <link href="codemirror/theme/monokai.css" rel="stylesheet" type="text/css">
+    <link href="codemirror/addon/display/fullscreen.css" rel="stylesheet" type="text/css">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/python/python.js"></script>
+    <!-- 推荐使用CDNJS的Vue链接 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
+
+    <!-- View UI（原iView）的最新CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/view-ui/dist/styles/viewui.css">
+    <script src="https://unpkg.com/view-ui/dist/index.js"></script>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <h1>Python 海龟编辑器</h1>
+    </header>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">代码编辑</a></li>
+            <li><a href="#">代码查看</a></li>
+            <li><a href="#">签到</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button>登录</button>
+            <button>注册</button>
+            <button>退出登录</button>
+        </div>
+    </nav>
+    <div id="app">
+        <div class="function">
+            <div class="dropdown">
+                <button>文件</button>
+                <div class="dropdown-content">
+                    <button onclick="newFile()">新建</button>
+                    <button onclick="openFile()">打开</button>
+                    <button onclick="saveFile()">保存</button>
+                    <button onclick="saveAsFile()">另存为</button>
+                    <button onclick="importFile()">导入</button>
+                </div>
+            </div>
+            <button type="primary" icon="md-play" onclick="runit()">运行</button>
+            <button type="error" icon="ios-trash" @click="clear">清除所有</button>
+            <button onclick="shareCode()">分享</button>
+        </div>
+        <div class="page">
+            <form class="index-form">
+                <textarea id="yourcode" class="index-form">import turtle
+turtle.begin_fill()
+turtle.fillcolor('red')
+for x in range(4):
+    turtle.forward(100)
+    turtle.right(90)
+turtle.end_fill()
+turtle.hideturtle()
+turtle.done()
+print("Hello World")
+                </textarea>
+            </form>
+            <div class="outputd">
+                <div id="mycanvas" class="canvas-ouput"></div>
+                <div class="output">
+                    <pre id="output"> </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页脚 -->
+    <footer>
+        &copy; 2024 Python 海龟编辑器. 版权所有.
+    </footer>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+                clear: function (event) {
+                    //清空代码编辑区
+                    // CodeMirrorEditor.setValue("");
+
+                    var mypre = document.getElementById("output");
+                    mypre.innerHTML = "";
+
+                    // 清空turtle画布
+                    var canvas = document.getElementById('mycanvas');
+                    if (canvas) {
+                        canvas.innerHTML = '';
+                    }
+                },
+
+            }
+        })
+        //新增window.onload 事件,用来初始化codemirror
+        //     window.onload = function () {
+        //         //console.log("onload is going")
+        //         // 添加codemirror 模式
+        var myTextarea = document.getElementById('yourcode');
+        var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+            mode: "python",
+            lineNumbers: true,
+            lineWrapping: true,
+            foldGutter: true,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            styleActiveLine: true,
+            indentUnit: 4,
+
+        });
+        CodeMirrorEditor.setSize("100%", "100%");
+
+        // }
+        function outf(text) {
+            var mypre = document.getElementById("output");
+            mypre.innerHTML = mypre.innerHTML + text;
+        }
+
+        function builtinRead(x) {
+            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                throw "File not found: '" + x + "'";
+            return Sk.builtinFiles["files"][x];
+        }
+
+        function runit() {
+            var prog = CodeMirrorEditor.getValue();
+            var mypre = document.getElementById("output");
+            mypre.innerHTML = '';
+            Sk.pre = "output";
+            Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3 });
+            (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+            var myPromise = Sk.misceval.asyncToPromise(function () {
+                return Sk.importMainWithBody("<stdin>", false, prog, true);
+            });
+            myPromise.then(function (mod) {
+                console.log('success');
+            },
+                function (err) {
+                    console.log(err.toString());
+                    mypre.innerHTML = err.toString();
+                });
+        }
+
+        function newFile() {
+            CodeMirrorEditor.setValue("");
+        }
+
+        function openFile() {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.py';
+            input.onchange = function (e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        CodeMirrorEditor.setValue(e.target.result);
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        function saveFile() {
+            var text = CodeMirrorEditor.getValue();
+            var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'code.py';
+            a.click();
+        }
+
+        function saveAsFile() {
+            var text = CodeMirrorEditor.getValue();
+            var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            var fileName = prompt('请输入文件名', 'code.py');
+            if (fileName) {
+                a.download = fileName;
+                a.click();
+            }
+        }
+
+        function importFile() {
+            openFile();
+        }
+
+        function shareCode() {
+            var code = CodeMirrorEditor.getValue();
+            var shareUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
+            var a = document.createElement('a');
+            a.href = shareUrl;
+            a.download = 'shared_code.py';
+            a.click();
+        }
+    </script>
+</body>
+
+</html>
