@@ -124,14 +124,22 @@
             gap: 8px;
         }
 
+        .sidebar-item a {
+            text-decoration: none;
+            font-style: normal;
+            color: inherit;
+        }
+
         .sidebar-item i {
             font-size: 32px;
+            font-style: normal;
             color: #007bff;
         }
 
         .sidebar-item p {
             color: #343a40;
             font-weight: 500;
+            text-align: center;
         }
 
         /* 弹窗样式 */
@@ -162,12 +170,12 @@
             border-radius: 12px 12px 0 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
         /* 关闭按钮样式 */
         .close-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -30px;
+            right: -20px;
             cursor: pointer;
             font-size: 24px;
             color: #6c757d;
@@ -281,7 +289,7 @@
     <!-- 顶部导航栏 -->
     <div class="header">
         <div class="header-left">
-            <div class="header-logo">乐小橙</div>
+            <div class="header-logo">TURTLE</div>
             <div class="header-info">
                 <div class="header-title">编程学习平台</div>
                 <div class="header-subtitle">探索编程乐趣，创造无限可能</div>
@@ -299,19 +307,19 @@
     <!-- 左侧导航 -->
     <div class="sidebar">
         <div class="sidebar-item">
-            <a href="index.html">
+            <a href="{% url 'index' %}">
                 <i>🏠</i>
                 <p>开始</p>
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="tmp.html">
+            <a href="{% url 'tmp' %}">
                 <i>📁</i>
                 <p>模板库</p>
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="yun.html">
+            <a href="{% url 'yun' %}">
                 <i>☁️</i>
                 <p>云作品</p>
             </a>
@@ -321,8 +329,8 @@
     <!-- 登录弹窗 -->
     <div class="popup" id="loginPopup">
         <div class="popup-header">
-            <span class="close-popup" onclick="closePopup('loginPopup')">&times;</span>
-            <img src="https://via.placeholder.com/300x120/FFE4B5/000?text=登录插画" alt="登录插画">
+            <span class="close-btn" onclick="closePopup('loginPopup')">&times;</span>
+            <img src="https://fpoimg.com/300x120" alt="">
         </div>
         <div class="tab-bar">
             <div class="tab-item active" onclick="showTab('loginPopup', 'passwordLogin')">密码登录</div>

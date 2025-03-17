@@ -8,3 +8,6 @@ def tmp(request):
 
 def yun(request):
     return render(request, 'yun.html')
+
+def python_page(request):
+    return render(request, 'python.html')

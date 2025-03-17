@@ -8,8 +8,10 @@
 <!-- 功能模块 -->
 <div class="function-modules">
     <div class="module">
-        <h3>Python项目开发</h3>
-        <p>基础入门<br>趣味游戏<br>应用创作</p>
+        <a href="{% url 'python_page' %}">
+            <h3>Python项目开发</h3>
+            <p>基础入门<br>趣味游戏<br>应用创作</p>
+        </a>
     </div>
     <div class="module">
         <h3>Python数据科学</h3>
@@ -90,7 +92,9 @@
         margin-bottom: 15px;
         font-size: 20px;
     }
-
+    .module a{
+        text-decoration: none;
+    }
     .module p {
         color: #6c757d;
         text-align: center;

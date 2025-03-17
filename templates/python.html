@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Python 海龟编辑器 - Python-Online</title>
+    <!-- 加载 static 模板标签 -->
+    {% load static %}
     <style>
         body {
             background-color: #f9f5eb;
@@ -46,12 +48,12 @@
 
         nav ul li a {
             color: white;
-            text-decoration: none;
+            text-decoration: none; /* 去掉下划线 */
             font-size: 18px;
         }
 
         nav ul li a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* 鼠标悬停时显示下划线 */
         }
 
         /* 登录注册按钮样式 */
@@ -108,6 +110,8 @@
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 100; /* 提高层级，确保在其他元素之上 */
+            border-radius: 5px; /* 增加圆角 */
+            overflow: hidden; /* 确保圆角生效 */
         }
 
         .dropdown-content button {
@@ -120,6 +124,7 @@
             border: none;
             background: none;
             cursor: pointer;
+            transition: background-color 0.3s ease; /* 增加过渡效果 */
         }
 
         .dropdown-content button:hover {
@@ -135,6 +140,7 @@
             display: flex;
             justify-content: center;
             padding: 20px;
+            height: 65vh;
         }
 
         .CodeMirror {
@@ -187,13 +193,14 @@
             /* 悬停时向上移动 5px */
         }
     </style>
-    <script src="js/skulpt.min.js" type="text/javascript"></script>
-    <script src="js/skulpt-stdlib.js" type="text/javascript"></script>
-    <link href="codemirror/lib/codemirror.css" rel="stylesheet" type="text/css">
-    <link href="codemirror/theme/monokai.css" rel="stylesheet" type="text/css">
-    <link href="codemirror/addon/display/fullscreen.css" rel="stylesheet" type="text/css">
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/mode/python/python.js"></script>
+    <!-- 使用 static 模板标签引入静态文件 -->
+    <script src="{% static 'js/skulpt.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/skulpt-stdlib.js' %}" type="text/javascript"></script>
+    <link href="{% static 'codemirror/lib/codemirror.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'codemirror/theme/monokai.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'codemirror/addon/display/fullscreen.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <script src="{% static 'codemirror/mode/python/python.js' %}"></script>
     <!-- 推荐使用CDNJS的Vue链接 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
 
@@ -210,7 +217,7 @@
     <!-- 导航栏 -->
     <nav>
         <ul>
-            <li><a href="#">首页</a></li>
+            <li><a href="/"><i>🏠</i></a></li> <!-- 添加返回首页按钮，用小房子图标代替文字 -->
             <li><a href="#">代码编辑</a></li>
             <li><a href="#">代码查看</a></li>
             <li><a href="#">签到</a></li>
