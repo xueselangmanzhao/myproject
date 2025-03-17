@@ -48,12 +48,14 @@
 
         nav ul li a {
             color: white;
-            text-decoration: none; /* 去掉下划线 */
+            text-decoration: none;
+            /* 去掉下划线 */
             font-size: 18px;
         }
 
         nav ul li a:hover {
-            text-decoration: underline; /* 鼠标悬停时显示下划线 */
+            text-decoration: underline;
+            /* 鼠标悬停时显示下划线 */
         }
 
         /* 登录注册按钮样式 */
@@ -109,9 +111,12 @@
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 100; /* 提高层级，确保在其他元素之上 */
-            border-radius: 5px; /* 增加圆角 */
-            overflow: hidden; /* 确保圆角生效 */
+            z-index: 100;
+            /* 提高层级，确保在其他元素之上 */
+            border-radius: 5px;
+            /* 增加圆角 */
+            overflow: hidden;
+            /* 确保圆角生效 */
         }
 
         .dropdown-content button {
@@ -124,7 +129,8 @@
             border: none;
             background: none;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* 增加过渡效果 */
+            transition: background-color 0.3s ease;
+            /* 增加过渡效果 */
         }
 
         .dropdown-content button:hover {
@@ -174,6 +180,10 @@
         .output {
             border: 1px solid #ccc;
             padding: 10px;
+            max-height: 50px;
+            /* 设置最大高度，可根据实际需求调整 */
+            overflow-y: auto;
+            /* 当内容超出最大高度时，显示垂直滚动条 */
         }
 
         /* 页脚样式 */
@@ -223,9 +233,9 @@
             <li><a href="#">签到</a></li>
         </ul>
         <div class="auth-buttons">
+            <button onclick="saveFile()">保存</button> <!-- 新增保存按钮 -->
+            <button onclick="shareCode()">分享</button> <!-- 分享按钮移到这里 -->
             <button>登录</button>
-            <button>注册</button>
-            <button>退出登录</button>
         </div>
     </nav>
     <div id="app">
