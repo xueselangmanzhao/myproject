@@ -161,6 +161,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             /* 图片阴影 */
         }
+
         /* 关闭按钮样式 */
         .close-popup {
             position: absolute;
@@ -327,13 +328,16 @@
             <div class="tab-item" onclick="showTab('loginPopup', 'smsLogin')">短信登录</div>
         </div>
         <div id="passwordLogin" class="tab-content">
-            <div class="form-group">
-                <input type="text" placeholder="手机/邮箱/用户名">
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="密码">
-            </div>
-            <button class="login-btn">登录</button>
+            <form id="passwordLoginForm" method="post" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" placeholder="手机/邮箱/用户名" id="passwordLoginIdentifier" name="identifier">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="密码" id="passwordLoginPassword" name="password">
+                </div>
+                <button class="login-btn" type="submit">登录</button>
+            </form>
             <div class="third-login">
                 <img src="https://via.placeholder.com/32/4CAF50/fff?text=WX" class="third-icon">
                 <img src="https://via.placeholder.com/32/00BCD4/fff?text=QQ" class="third-icon">
@@ -344,14 +348,17 @@
             </div>
         </div>
         <div id="smsLogin" class="tab-content" style="display: none;">
-            <div class="form-group">
-                <input type="text" placeholder="手机号码">
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="验证码">
-                <button>获取验证码</button>
-            </div>
-            <button class="login-btn">登录</button>
+            <form id="smsLoginForm" method="post" action="{% url 'phone_login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" placeholder="手机号码" id="smsLoginPhone" name="phone_number">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="验证码" id="smsLoginCode">
+                    <button id="getSmsLoginCodeBtn" onclick="sendSmsLoginCode()">获取验证码</button>
+                </div>
+                <button class="login-btn" type="submit">登录</button>
+            </form>
             <div class="footer-links">
                 <a href="#" onclick="showPopup('forgotPasswordPopup')">找回密码</a> | <a href="#"
                     onclick="showPopup('registerPopup')">账号注册</a>
@@ -383,17 +390,20 @@
             <span class="close-popup" onclick="closePopup('registerPopup')">&times;</span>
             <img src="https://via.placeholder.com/300x120/FFE4B5/000?text=注册插画" alt="注册插画">
         </div>
-        <div class="form-group">
-            <input type="text" placeholder="手机号码">
-        </div>
-        <div class="form-group">
-            <input type="password" placeholder="设置密码">
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="验证码">
-            <button>获取验证码</button>
-        </div>
-        <button class="login-btn">注册</button>
+        <form id="registerForm" method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="手机号码" id="registerPhone" name="phone_number">
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="设置密码" id="registerPassword" name="password1">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="验证码" id="registerCode">
+                <button id="getRegisterCodeBtn" onclick="sendRegisterCode()">获取验证码</button>
+            </div>
+            <button class="login-btn" type="submit">注册</button>
+        </form>
         <div class="footer-links">
             <a href="#" onclick="showPopup('loginPopup')">返回登录</a>
         </div>
@@ -443,6 +453,156 @@
             const activeTab = document.querySelector(`#${popupId} .tab-item[onclick="showTab('${popupId}', '${tabId}')"]`);
             activeTab.classList.add('active');
         }
+
+        function sendRegisterCode() {
+            const phone = document.getElementById('registerPhone').value;
+            if (!phone) {
+                alert('请输入手机号码');
+                return;
+            }
+            // 这里可以使用 AJAX 发送请求到后端获取验证码
+            // 示例：
+            fetch('/send_register_code/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ phone_number: phone })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('验证码已发送，请查收');
+                } else {
+                    alert(data.message);
+                }
+            });
+            alert(`已向 ${phone} 发送验证码，请查收。`);
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const code = document.getElementById('registerCode').value;
+            if (!phone || !password || !code) {
+                alert('请填写完整信息');
+                return;
+            }
+            // 这里可以使用 AJAX 发送注册请求到后端
+            // 示例：
+            fetch('/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ phone_number: phone, password: password, code: code })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('注册成功');
+                    closePopup('registerPopup');
+                    showPopup('loginPopup');
+                } else {
+                    alert(data.message);
+                }
+            });
+            alert('注册成功！');
+            closePopup('registerPopup');
+            showPopup('loginPopup');
+        });
+
+        function sendSmsLoginCode() {
+        const phone = document.getElementById('smsLoginPhone').value;
+        if (!phone) {
+            alert('请输入手机号码');
+            return;
+        }
+        // 这里可以使用 AJAX 发送请求到后端获取验证码
+        // 示例：
+        fetch('/send_sms_login_code/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ phone_number: phone })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('验证码已发送，请查收');
+            } else {
+                alert(data.message);
+            }
+        });
+        alert(`已向 ${phone} 发送验证码，请查收。`);
+    }
+
+    document.getElementById('passwordLoginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const identifier = document.getElementById('passwordLoginIdentifier').value;
+        const password = document.getElementById('passwordLoginPassword').value;
+        if (!identifier || !password) {
+            alert('请填写完整信息');
+            return;
+        }
+        // 这里可以使用 AJAX 发送登录请求到后端
+        // 示例：
+        fetch('/user_login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ identifier: identifier, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('登录成功');
+                closePopup('loginPopup');
+            } else {
+                alert(data.message);
+            }
+        });
+        alert('登录成功！');
+        closePopup('loginPopup');
+    });
+
+    document.getElementById('smsLoginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const phone = document.getElementById('smsLoginPhone').value;
+        const code = document.getElementById('smsLoginCode').value;
+        if (!phone || !code) {
+            alert('请填写完整信息');
+            return;
+        }
+        // 这里可以使用 AJAX 发送登录请求到后端
+        // 示例：
+        fetch('/phone_login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ phone_number: phone, code: code })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('登录成功');
+                closePopup('loginPopup');
+            } else {
+                alert(data.message);
+            }
+        });
+        alert('登录成功！');
+        closePopup('loginPopup');
+    });
     </script>
 </body>
 

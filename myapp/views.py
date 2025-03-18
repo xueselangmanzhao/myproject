@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import RegistrationForm, LoginForm, PasswordResetRequestForm, PhoneLoginForm # type: ignore
+from .forms import RegistrationForm, LoginForm, PasswordResetRequestForm, PhoneLoginForm
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import CustomUser

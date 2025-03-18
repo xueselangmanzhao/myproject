@@ -7,7 +7,7 @@ urlpatterns = [
     path('yun/', yun, name='yun'),
     path('python_page/', python_page, name='python_page'),
     path('register/', register, name='register'),
-    path('login/', user_login, name='login'),
+    path('login/', user_login, name='user_login'),
     path('password_reset/', password_reset, name='password_reset'),
     path('phone_login/', phone_login, name='phone_login'),
 ]
