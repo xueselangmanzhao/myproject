@@ -57,64 +57,45 @@
 
         .header-subtitle {
             font-size: 14px;
-            color: #cce5ff;
-        }
-
-        /* 搜索框样式 */
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 15px;
-            border-radius: 20px;
-            min-width: 250px;
-            max-width: 400px;
-            flex-shrink: 1;
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 16px;
-            width: 100%;
-        }
-
-        .search-box i {
-            color: #6c757d;
-            font-size: 18px;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px;
         }
 
-        .header-right a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 16px;
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 20px;
         }
 
-        .header-right a:hover {
-            color: #cce5ff;
+        .search-box i {
+            margin-right: 5px;
+            color: #6c757d;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
         }
 
         /* 左侧导航 */
         .sidebar {
             position: fixed;
-            top: 80px;
+            top: 70px;
             left: 0;
             width: 120px;
-            height: 100vh;
-            background: linear-gradient(180deg, #e3f2fd, #d1ecf1);
-            padding: 20px 10px;
-            border-right: 1px solid #dee2e6;
+            height: calc(100vh - 70px);
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            align-items: center;
+            padding-top: 20px;
         }
 
         .sidebar-item {
@@ -122,6 +103,7 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            margin-bottom: 20px;
         }
 
         .sidebar-item a {
@@ -149,30 +131,38 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            /* 渐变背景 */
             border-radius: 20px;
+            /* 更大的圆角 */
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            /* 更强的阴影 */
             padding: 30px;
+            /* 增加内边距 */
             display: none;
             z-index: 9999;
             min-width: 350px;
+            /* 最小宽度 */
         }
 
         .popup-header {
             text-align: center;
             margin-bottom: 20px;
             position: relative;
+            /* 为关闭按钮定位 */
         }
 
         .popup-header img {
             width: 100%;
             height: 150px;
+            /* 增加图片高度 */
             object-fit: cover;
             border-radius: 12px 12px 0 0;
+            /* 更大的圆角 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* 图片阴影 */
         }
-        
         /* 关闭按钮样式 */
-        .close-btn {
+        .close-popup {
             position: absolute;
             top: -30px;
             right: -20px;
@@ -182,7 +172,7 @@
             transition: color 0.3s;
         }
 
-        .close-btn:hover {
+        .close-popup:hover {
             color: #343a40;
         }
 
@@ -329,8 +319,8 @@
     <!-- 登录弹窗 -->
     <div class="popup" id="loginPopup">
         <div class="popup-header">
-            <span class="close-btn" onclick="closePopup('loginPopup')">&times;</span>
-            <img src="https://fpoimg.com/300x120" alt="">
+            <span class="close-popup" onclick="closePopup('loginPopup')">&times;</span>
+            <img src="https://via.placeholder.com/300x120/FFE4B5/000?text=登录插画" alt="登录插画">
         </div>
         <div class="tab-bar">
             <div class="tab-item active" onclick="showTab('loginPopup', 'passwordLogin')">密码登录</div>
@@ -349,8 +339,8 @@
                 <img src="https://via.placeholder.com/32/00BCD4/fff?text=QQ" class="third-icon">
             </div>
             <div class="footer-links">
-                <a href="#">忘记密码</a>
-                <a href="#">注册</a>
+                <a href="#" onclick="showPopup('forgotPasswordPopup')">找回密码</a> | <a href="#"
+                    onclick="showPopup('registerPopup')">账号注册</a>
             </div>
         </div>
         <div id="smsLogin" class="tab-content" style="display: none;">
@@ -362,14 +352,50 @@
                 <button>获取验证码</button>
             </div>
             <button class="login-btn">登录</button>
-            <div class="third-login">
-                <img src="https://via.placeholder.com/32/4CAF50/fff?text=WX" class="third-icon">
-                <img src="https://via.placeholder.com/32/00BCD4/fff?text=QQ" class="third-icon">
-            </div>
             <div class="footer-links">
-                <a href="#">忘记密码</a>
-                <a href="#">注册</a>
+                <a href="#" onclick="showPopup('forgotPasswordPopup')">找回密码</a> | <a href="#"
+                    onclick="showPopup('registerPopup')">账号注册</a>
             </div>
+        </div>
+    </div>
+
+    <!-- 找回密码弹窗 -->
+    <div class="popup" id="forgotPasswordPopup">
+        <div class="popup-header">
+            <span class="close-popup" onclick="closePopup('forgotPasswordPopup')">&times;</span>
+            <img src="https://via.placeholder.com/300x120/FFE4B5/000?text=找回密码插画" alt="找回密码插画">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="手机号码">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="验证码">
+            <button>获取验证码</button>
+        </div>
+        <div class="footer-links">
+            <a href="#" onclick="showPopup('loginPopup')">返回登录</a>
+        </div>
+    </div>
+
+    <!-- 注册弹窗 -->
+    <div class="popup" id="registerPopup">
+        <div class="popup-header">
+            <span class="close-popup" onclick="closePopup('registerPopup')">&times;</span>
+            <img src="https://via.placeholder.com/300x120/FFE4B5/000?text=注册插画" alt="注册插画">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="手机号码">
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="设置密码">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="验证码">
+            <button>获取验证码</button>
+        </div>
+        <button class="login-btn">注册</button>
+        <div class="footer-links">
+            <a href="#" onclick="showPopup('loginPopup')">返回登录</a>
         </div>
     </div>
 
@@ -380,33 +406,43 @@
     </div>
 
     <script>
+        window.onload = function () {
+            // 登录按钮点击显示弹窗
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                document.getElementById('loginPopup').style.display = 'block';
+            });
+        };
+
+        function showPopup(popupId) {
+            // 隐藏所有弹窗
+            const popups = document.querySelectorAll('.popup');
+            popups.forEach(popup => {
+                popup.style.display = 'none';
+            });
+            // 显示指定弹窗
+            document.getElementById(popupId).style.display = 'block';
+        }
+
         function closePopup(popupId) {
             document.getElementById(popupId).style.display = 'none';
         }
 
         function showTab(popupId, tabId) {
-            var popup = document.getElementById(popupId);
-            var tabContents = popup.querySelectorAll('.tab-content');
-            tabContents.forEach(function (content) {
+            // 隐藏当前弹窗内的所有 tab 内容
+            const tabContents = document.querySelectorAll(`#${popupId} .tab-content`);
+            tabContents.forEach(content => {
                 content.style.display = 'none';
             });
-            var activeTab = popup.querySelector('.tab-item.active');
-            if (activeTab) {
-                activeTab.classList.remove('active');
-            }
-            var selectedTab = popup.querySelector('[onclick="showTab(\'' + popupId + '\', \'' + tabId + '\')"]');
-            if (selectedTab) {
-                selectedTab.classList.add('active');
-            }
-            var selectedContent = document.getElementById(tabId);
-            if (selectedContent) {
-                selectedContent.style.display = 'block';
-            }
+            // 显示指定 tab 内容
+            document.getElementById(tabId).style.display = 'block';
+            // 更新 tab 项的激活状态
+            const tabItems = document.querySelectorAll(`#${popupId} .tab-item`);
+            tabItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeTab = document.querySelector(`#${popupId} .tab-item[onclick="showTab('${popupId}', '${tabId}')"]`);
+            activeTab.classList.add('active');
         }
-
-        document.getElementById('loginBtn').addEventListener('click', function () {
-            document.getElementById('loginPopup').style.display = 'block';
-        });
     </script>
 </body>
 

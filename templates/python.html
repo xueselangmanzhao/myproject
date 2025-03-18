@@ -13,19 +13,6 @@
             margin: 0;
             padding: 0;
         }
-
-        /* 头部样式 */
-        header {
-            background-color: #3498db;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
         /* 导航栏样式 */
         nav {
             background-color: #2980b9;
@@ -80,7 +67,6 @@
         .function {
             background-color: #3498db;
             padding: 20px;
-            text-align: center;
         }
 
         .function button {
@@ -220,10 +206,6 @@
 </head>
 
 <body>
-    <!-- 头部 -->
-    <header>
-        <h1>Python 海龟编辑器</h1>
-    </header>
     <!-- 导航栏 -->
     <nav>
         <ul>
@@ -252,7 +234,6 @@
             </div>
             <button type="primary" icon="md-play" onclick="runit()">运行</button>
             <button type="error" icon="ios-trash" @click="clear">清除所有</button>
-            <button onclick="shareCode()">分享</button>
         </div>
         <div class="page">
             <form class="index-form">

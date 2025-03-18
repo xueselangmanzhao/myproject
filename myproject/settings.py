@@ -28,6 +28,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+# 配置认证后端
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+AUTH_USER_MODEL = 'myapp.CustomUser'
+
+# 配置登录重定向 URL
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'myproject',
         'USER': 'root',
-        'PASSWORD': '12345678',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
     }
