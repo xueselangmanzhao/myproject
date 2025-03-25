@@ -1,221 +1,168 @@
 {% extends 'base.html' %}
 
-{% block title %}TURTLE 编程平台 - 首页{% endblock %}
+{% block title %}TURTLE 编程平台 - 云作品{% endblock %}
 
 {% block content %}
 
-    <!-- 主内容区 -->
-    <div class="main-content">
-        <div class="import-section">
-            <div class="import-box" onclick="importFile()">
-                <div class="import-icon"></div>
-                导入作品（tur、py）
-            </div>
+<!-- 导入作品区域 -->
+<div class="import-section">
+    <div class="import-card">
+        <div class="import-icon">
+            <img src="https://via.placeholder.com/48/81D4FA/fff?text=导入" alt="导入文件">
         </div>
-        <div class="features">
-            <div class="feature-item">
-                <div class="feature-icon">云端保存作品</div>
-                <p>云端保存作品</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">随时随地分享作品</div>
-                <p>随时随地分享作品</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">跨终端使用</div>
-                <p>跨终端使用</p>
-            </div>
-        </div>
-        <div class="login-btn2-wrapper">
-            <button class="login-btn2">立即登录</button>
+        <div class="import-text">
+            <h3>导入作品 (tur、py)</h3>
         </div>
     </div>
+</div>
 
+<!-- 提示信息 -->
+<div class="login-tip">
+    <p>快去登录你的账号体验更多功能吧！</p>
+</div>
 
-    <style>
-        /* 导入作品按钮 */
-        .import-section {
-            position: absolute;
-            top: 90px;
-            left: 140px;
-        }
+<!-- 功能模块 -->
+<div class="features">
+    <div class="feature-item">
+        <div class="feature-icon">
+            <img src="https://via.placeholder.com/64/E3F2FD/4FC3F7?text=云" alt="云端保存">
+        </div>
+        <p>云端保存作品</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon">
+            <img src="https://via.placeholder.com/64/E3F2FD/4FC3F7?text=分享" alt="随时分享">
+        </div>
+        <p>随时随地分享作品</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon">
+            <img src="https://via.placeholder.com/64/E3F2FD/4FC3F7?text=跨端" alt="跨终端">
+        </div>
+        <p>跨终端使用</p>
+    </div>
+</div>
 
-        .import-box {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
+<!-- 登录按钮 -->
+<div class="login-btn-container">
+    <button class="login-button">立即登录</button>
+</div>
 
-        .import-icon {
-            width: 30px;
-            height: 30px;
-            background-color: #4a90e2;
-        }
+<style>
+    /* 导入作品区域 */
+    .import-section {
+        margin-bottom: 40px;
+    }
 
+    .import-card {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        max-width: 400px;
+    }
+
+    .import-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .import-icon {
+        margin-right: 15px;
+    }
+
+    .import-icon img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .import-text h3 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+        font-weight: normal;
+    }
+
+    /* 提示信息 */
+    .login-tip {
+        text-align: center;
+        margin: 40px 0;
+        color: #666;
+        font-size: 16px;
+    }
+
+    /* 功能模块 */
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .feature-item {
+        text-align: center;
+        width: 180px;
+    }
+
+    .feature-icon {
+        margin: 0 auto 15px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .feature-icon img {
+        width: 64px;
+        height: 64px;
+    }
+
+    .feature-item p {
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* 登录按钮 */
+    .login-btn-container {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .login-button {
+        background-color: #FFD600;
+        color: #333;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 40px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .login-button:hover {
+        background-color: #FFC400;
+    }
+
+    @media (max-width: 768px) {
         .features {
-            display: flex;
-            gap: 40px;
-            margin: 140px 0;
-            justify-content: space-evenly;
-            /* 新增：使功能项居中显示 */
-            flex-wrap: wrap;
-            /* 新增：允许功能项换行 */
-        }
-
-        .feature-item {
-            text-align: center;
-            width: 200px;
-            /* 新增：固定每个功能项的宽度 */
-            padding: 20px;
-            /* 新增：增加内边距 */
-            border-radius: 10px;
-            /* 新增：圆角边框 */
-            background-color: #ffffff;
-            /* 新增：白色背景 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* 新增：阴影效果 */
-            transition: all 0.3s ease;
-            /* 新增：过渡效果 */
-        }
-
-        .feature-item:hover {
-            transform: translateY(-5px);
-            /* 新增：悬停时向上移动 */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            /* 新增：悬停时阴影加深 */
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background-color: #e6f2ff;
-            border-radius: 50%;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            /* 新增：居中显示并增加底部间距 */
-            color: #4a90e2;
-            /* 新增：图标文字颜色 */
-            font-size: 24px;
-            /* 新增：图标文字大小 */
         }
+    }
+</style>
 
+<script>
+    document.querySelector('.import-card').addEventListener('click', function() {
+        alert('请先登录后再导入作品');
+    });
 
-        /* 居中登录按钮 */
-        .center-login {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .login-btn2-wrapper {
-            display: flex;
-            justify-content: center;
-        }
-
-        .login-btn2 {
-            width: 200px;
-            margin: 0 auto;
-            padding: 12px 40px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-        }
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            /* 增加内边距 */
-            background: #007bff;
-            /* 蓝色背景 */
-            color: white;
-            /* 白色文字 */
-            border: none;
-            border-radius: 6px;
-            /* 圆角 */
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background 0.3s;
-            /* 过渡效果 */
-        }
-
-        .login-btn:hover {
-            background: #0056b3;
-            /* 悬停时背景颜色 */
-        }
-
-        .third-login {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .third-icon {
-            width: 40px;
-            /* 增加图标大小 */
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* 图标阴影 */
-            transition: transform 0.3s;
-            /* 过渡效果 */
-        }
-
-        .third-icon:hover {
-            transform: scale(1.1);
-            /* 悬停时放大 */
-        }
-
-        .footer-links {
-            text-align: center;
-            font-size: 14px;
-            /* 增加字体大小 */
-        }
-
-        .footer-links a {
-            color: #007bff;
-            /* 蓝色链接 */
-            text-decoration: none;
-            margin: 0 5px;
-            transition: color 0.3s;
-            /* 过渡效果 */
-        }
-
-        .footer-links a:hover {
-            color: #0056b3;
-            /* 悬停时颜色 */
-        }
-    </style>
-
-    <script>
-
-        function importFile() {
-            openFile();
-        }
-
-        function openFile() {
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.py';
-            input.onchange = function (e) {
-                var file = e.target.files[0];
-                if (file) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        CodeMirrorEditor.setValue(e.target.result);
-                    };
-                    reader.readAsText(file);
-                }
-            };
-            input.click();
-        }
-    </script>
-    {% endblock %}
+    document.querySelector('.login-button').addEventListener('click', function() {
+        document.getElementById('loginBtn').click();
+    });
+</script>
+{% endblock %}

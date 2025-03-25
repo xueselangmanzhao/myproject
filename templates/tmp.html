@@ -1,101 +1,198 @@
 {% extends 'base.html' %}
 
-{% block title %}TURTLE 编程平台 - 首页{% endblock %}
+{% block title %}TURTLE 编程平台 - 模板库{% endblock %}
 
 {% block content %}
 
-<!-- 主内容区 -->
-<div class="main-content">
-    <div class="section">
-        <h3>新手入门 —— 开启你的Python之旅</h3>
-        <div class="card-grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/200x150" alt="作品1">
-                <p>你的名字</p>
-                <p class="difficulty">难度：★★☆☆☆</p>
+<!-- 新手入门区域 -->
+<div class="category-section">
+    <h2>新手入门 <span class="subtitle">— 开启你的Python之旅</span></h2>
+    <div class="template-grid">
+        <div class="template-item">
+            <div class="template-image" style="background-color: #FFF9C4;">
+                <img src="https://via.placeholder.com/150/FFD180/333?text=NAME" alt="你的名字">
             </div>
-            <!-- 其他卡片类似结构，重复添加 -->
+            <div class="template-info">
+                <h3>你的名字</h3>
+                <div class="difficulty">难度：<span class="stars">★☆☆☆☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #E3F2FD;">
+                <img src="https://via.placeholder.com/150/BBDEFB/333?text=汽车" alt="大黄鸡的发动机">
+            </div>
+            <div class="template-info">
+                <h3>大黄鸡的发动机</h3>
+                <div class="difficulty">难度：<span class="stars">★★★☆☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #FFF9C4;">
+                <img src="https://via.placeholder.com/150/FFF176/333?text=123" alt="猜数字">
+            </div>
+            <div class="template-info">
+                <h3>猜数字</h3>
+                <div class="difficulty">难度：<span class="stars">★★☆☆☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #E1F5FE;">
+                <img src="https://via.placeholder.com/150/81D4FA/333?text=石头" alt="石头剪刀布">
+            </div>
+            <div class="template-info">
+                <h3>石头剪刀布</h3>
+                <div class="difficulty">难度：<span class="stars">★★★☆☆</span></div>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="section">
-        <h3>海龟库 —— 使用Python进行创意绘图</h3>
-        <div class="card-grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/200x150" alt="作品2">
-                <p>彩色弹球</p>
-                <p class="difficulty">难度：★★★☆☆</p>
+<!-- 海龟库区域 -->
+<div class="category-section">
+    <h2>海龟库 <span class="subtitle">— 使用Python进行创意绘图</span></h2>
+    <div class="template-grid">
+        <div class="template-item">
+            <div class="template-image" style="background-color: #001529;">
+                <img src="https://via.placeholder.com/150/4FC3F7/fff?text=弹球" alt="彩色弹球">
             </div>
-            <!-- 其他卡片类似结构，重复添加 -->
+            <div class="template-info">
+                <h3>彩色弹球</h3>
+                <div class="difficulty">难度：<span class="stars">★★★☆☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #E3F2FD;">
+                <img src="https://via.placeholder.com/150/FFECB3/333?text=螺旋" alt="随机螺旋线">
+            </div>
+            <div class="template-info">
+                <h3>随机螺旋线</h3>
+                <div class="difficulty">难度：<span class="stars">★★★☆☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #FFF9C4;">
+                <img src="https://via.placeholder.com/150/FFC107/333?text=鸡" alt="大黄鸡">
+            </div>
+            <div class="template-info">
+                <h3>大黄鸡</h3>
+                <div class="difficulty">难度：<span class="stars">★★★★☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #E1F5FE;">
+                <img src="https://via.placeholder.com/150/80DEEA/333?text=雪花" alt="科技雪花">
+            </div>
+            <div class="template-info">
+                <h3>科技雪花</h3>
+                <div class="difficulty">难度：<span class="stars">★★★★☆</span></div>
+            </div>
+        </div>
+        
+        <div class="template-item">
+            <div class="template-image" style="background-color: #FFF3E0;">
+                <img src="https://via.placeholder.com/150/FFCCBC/333?text=樱花" alt="分形樱花树">
+            </div>
+            <div class="template-info">
+                <h3>分形樱花树</h3>
+                <div class="difficulty">难度：<span class="stars">★★★★★</span></div>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    /* 主内容区优化 */
-    .main-content {
-        margin-left: 100px;
-        /* 侧边栏宽度+间距 */
-        margin-top: 60px;
-        /* 导航栏高度 */
-        max-width: 1400px;
-        /* 限制最大宽度，更显大气 */
-        margin-inline: auto;
-        padding: 20px;
+    .category-section {
+        margin-bottom: 40px;
     }
-
-    .section {
-        margin-top: 30px;
+    
+    .category-section h2 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+        color: #999;
+        font-weight: normal;
+    }
+    
+    .template-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .template-item {
+        width: calc(25% - 15px);
         background-color: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 2px 15px rgba(0, 123, 255, 0.1);
-        /* 增加质感阴影 */
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
     }
-
-    .section h3 {
-        color: #007bff;
-        margin-bottom: 20px;
-        font-size: 20px;
-    }
-
-    .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 30px;
-        margin-top: 25px;
-    }
-
-    .card {
-        background-color: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
+    
+    .template-item:hover {
         transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-
-    .card img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 12px;
+    
+    .template-image {
+        height: 160px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-
-    .card p:first-child {
-        font-size: 16px;
-        margin-bottom: 8px;
+    
+    .template-image img {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: contain;
     }
-
+    
+    .template-info {
+        padding: 12px;
+    }
+    
+    .template-info h3 {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 5px;
+        font-weight: normal;
+    }
+    
     .difficulty {
         font-size: 12px;
-        color: #6c757d;
+        color: #999;
+    }
+    
+    .stars {
+        color: #FFCA28;
+    }
+    
+    @media (max-width: 1200px) {
+        .template-item {
+            width: calc(33.33% - 14px);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .template-item {
+            width: calc(50% - 10px);
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .template-item {
+            width: 100%;
+        }
     }
 </style>
-
-<script>
-</script>
 {% endblock %}
